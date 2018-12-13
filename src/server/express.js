@@ -1,5 +1,6 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import proxyServer from '../../proxy'
 const server = express();
 server.use(cookieParser());
 import path from 'path';
@@ -14,7 +15,7 @@ import configProdServer from '../../config/webpack.prod-server.js';
 
 const isProd = process.env.NODE_ENV === 'production';
 const isDev = !isProd;
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 let isBuilt = false;
 
 server.listen(PORT, () => {
@@ -50,6 +51,11 @@ if (isDev) {
 	server.use(webpackHotMiddlware);
 	server.use(webpackHotServerMiddleware(compiler));
 	console.log('Middleware enabled');
+
+	// init proxy server need to make separate structure for this
+	const proxyApp = express()
+	proxyServer(proxyApp)
+
 	done();
 } else {
 	webpack([configProdClient, configProdServer]).run((err, stats) => {

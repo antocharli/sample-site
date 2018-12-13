@@ -7,11 +7,11 @@ import styles from './Home.css';
 import { t } from '../../Components/Languages';
 
 class Home extends React.Component {
-	componentWillMount()
+	componentDidMount()
 	{
-		if(typeof(window) != 'object')
+		if(true || typeof(window) != 'object')
 		{
-			fetch('https://uxuidev.skavaone.com/skavastream/core/v5/wrskavastore/category/top?subcategory=true&t=124&partnerId=68&campaignId=2691&storeId=77&appid=skavastore&locale=en_US')
+			fetch('http://localhost:4040/skavastream/core/v5/wrskavastore/category/top?subcategory=true&t=124&partnerId=68&campaignId=2691&storeId=77&appid=skavastore&locale=en_US')
 			.then(function(response) {
 				return response.json();
 			})
