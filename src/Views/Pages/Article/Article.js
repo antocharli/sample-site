@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from '../../Components/Head';
 import Content from '../../Components/Content';
-import data from '../../../data/bio';
+import data from '../../../../data/bio';
 import styles from './Article.css';
 
 function Article() {

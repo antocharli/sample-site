@@ -1,13 +1,13 @@
 import React from 'react';
 import Head from '../../Components/Head';
 import Content from '../../Components/Content';
-const MarkdownData = require('../../../data/post.md');
-const imagePath = require('../../assets/images/logo.svg');
+const MarkdownData = require('../../../../data/post.md');
+const imagePath = require('../../../assets/images/logo.svg');
 import styles from './About.css';
 
 function About() {
 	return (
-		<div>
+		<div>	
 			<Head title="React SSR Boilerplate • About" />
 			<Content>
 				<div className={styles.profile}>

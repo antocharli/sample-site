@@ -9,6 +9,12 @@ module.exports = {
 	externals,
 	entry: './src/server/render.js',
 	mode: 'production',
+	resolve: {
+		alias: {
+			Assets: path.resolve(__dirname, 'src/assets/'),
+			Templates: path.resolve(__dirname, 'src/templates/')
+		}
+	},
 	output: {
 		filename: 'prod-server-bundle.js',
 		path: path.resolve(__dirname, '../build'),

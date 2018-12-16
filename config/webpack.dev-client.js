@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 
+console.log('__dirname ', path.resolve(__dirname, '../src/assets/'))
+
 module.exports = {
 	name: 'client',
 	entry: {
@@ -14,6 +16,12 @@ module.exports = {
 		],
 	},
 	mode: 'development',
+	resolve: {
+		alias: {
+			Assets: path.resolve(__dirname, '../src/assets/'),
+			Components: path.resolve(__dirname, '../src/views/Components')
+		}
+	},
 	output: {
 		filename: '[name]-bundle.[hash].js',
 		chunkFilename: '[name].[hash].js',
@@ -88,5 +96,5 @@ module.exports = {
 			},
 		}),
 		new webpack.HotModuleReplacementPlugin(),
-	],
+	]
 };

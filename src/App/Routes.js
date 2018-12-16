@@ -1,45 +1,46 @@
 import React from 'react';
-import universal from 'react-universal-component';
-import { Route, Switch, Redirect } from 'react-router';
-import Nav from '../Components/Nav';
-import '../assets/css/globals.css';
-import Head from '../Components/Head';
-import Loading from '../Components/Loading';
-import { RedirectWithStatus } from '../Components/RedirectStatus';
-import riangle from '../assets/images/riangle.svg';
+import universal from 'react-universal-component'
+import { Route, Switch, Redirect } from 'react-router'
+import Nav from '../Views/Components/Nav'
+import '../assets/css/globals.css'
+import Head from '../Views/Components/Head'
+import Loading from '../Views/Components/Loading'
+import { pathParams } from './pathParams'
 
-const UniversalComponent = universal(props => import(`../Views/${props.page}`), {
-	loading: () => <Loading />,
+const UniversalComponent = universal(props => import(`../Views/Pages/${props.pageName}`), {
+	loading: () => <Loading/>,
 	ignoreBabelRename: true,
 });
+
+const routeConfig = (data, index) => {
+	return (
+		<Route
+			exact
+			key={index}
+			path={data.path}
+			render={routeProps => <UniversalComponent pageName={data.pageName} loading={data.loading} {...routeProps} />}
+		/>
+	)
+}
+
+const getRoutes = () => {
+	return pathParams.map(routeConfig)
+}
 
 export default ({ staticContext, lang }) => (
 	<div>
 		<Head />
 		<Nav lang={lang} />
-		<Switch>
-			<Route
-				exact
-				path="/:lang"
-				render={routeProps => <UniversalComponent page="Home" {...routeProps} />}
-			/>
-			<Route
-				exact
-				path="/:lang/about"
-				render={routeProps => <UniversalComponent page="About" {...routeProps} />}
-			/>
-			<Route
-				exact
-				path="/:lang/article"
-				render={routeProps => <UniversalComponent page="Article" {...routeProps} />}
-			/>
-			<RedirectWithStatus status={301} exact from="/" to={`/${lang}`} />
-			<Route render={routeProps => <UniversalComponent page="NotFound" {...routeProps} />} />
-		</Switch>
+			<Switch>
+				{ getRoutes() }
+				<Route render={routeProps => <UniversalComponent pageName="NotFound" {...routeProps} />} />
+			</Switch>	
 		<footer>
-			<a href="https://www.riangle.com/">
-				<img src={riangle} alt="Riangle Logo" />
-			</a>
+			############################# <br/>
+			
+			***** Footer goes here ***** <br/>
+
+			############################# <br/>
 		</footer>
 	</div>
 );
