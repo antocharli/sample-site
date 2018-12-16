@@ -16,12 +16,6 @@ module.exports = {
 		],
 	},
 	mode: 'development',
-	resolve: {
-		alias: {
-			Assets: path.resolve(__dirname, '../src/assets/'),
-			Components: path.resolve(__dirname, '../src/views/Components')
-		}
-	},
 	output: {
 		filename: '[name]-bundle.[hash].js',
 		chunkFilename: '[name].[hash].js',

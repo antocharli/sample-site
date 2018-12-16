@@ -8,12 +8,6 @@ module.exports = {
 	externals,
 	entry: './src/server/render.js',
 	mode: 'development',
-	resolve: {
-		alias: {
-			Assets: path.resolve(__dirname, '../src/assets/'),
-			Templates: path.resolve(__dirname, 'src/templates/')
-		}
-	},
 	output: {
 		filename: 'dev-server-bundle.js',
 		chunkFilename: '[name].js',

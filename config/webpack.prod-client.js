@@ -18,12 +18,6 @@ module.exports = {
 		path: path.resolve(__dirname, '../dist'),
 		publicPath: '/',
 	},
-	resolve: {
-		alias: {
-			Assets: path.resolve(__dirname, 'src/assets/'),
-			Templates: path.resolve(__dirname, 'src/templates/')
-		}
-	},
 	optimization: {
 		splitChunks: {
 			cacheGroups: {
