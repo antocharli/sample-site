@@ -9,9 +9,9 @@ import manifest from './manifest'
 
 import { flushChunkNames } from 'react-universal-component/server'
 import flushChunks from 'webpack-flush-chunks'
-import extractLocalesFromReq from '../client-locale/extractLocalesFromReq'
-import guessLocale from '../client-locale/guessLocale'
-import { LOCALE_COOKIE_NAME, COOKIE_MAX_AGE, AVAILABLE_LOCALES } from '../client-locale/constants'
+import extractLocalesFromReq from '../locale/extractLocalesFromReq'
+import guessLocale from '../locale/guessLocale'
+import { LOCALE_COOKIE_NAME, COOKIE_MAX_AGE, AVAILABLE_LOCALES } from '../locale/constants'
 
 export default ({ clientStats }) => (req, res) => {
 	const userLocales = extractLocalesFromReq(req)
