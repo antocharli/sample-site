@@ -15,7 +15,7 @@ import configProdServer from '../../config/webpack.prod-server.js';
 
 const isProd = process.env.NODE_ENV === 'production';
 const isDev = !isProd;
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 let isBuilt = false;
 
 server.listen(PORT, () => {

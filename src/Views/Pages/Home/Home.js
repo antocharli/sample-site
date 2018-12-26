@@ -1,27 +1,42 @@
 import 'isomorphic-fetch'
-import { polyfill } from 'es6-promise';
-import React from 'react';
-import Head from '../../Components/Head';
-import Content from '../../Components/Content';
-import styles from './Home.css';
-import { t } from '../../Components/Languages';
+import { polyfill } from 'es6-promise'
+import React from 'react'
+import Head from '../../Components/Head'
+import Content from '../../Components/Content'
+import styles from './Home.css'
+import { t } from '../../Components/Languages'
+import { API_CONFIG, END_POINTS } from "../../../env"
+
+const getTopMenu = () => {
+
+	if(typeof(window) != 'object')
+	{
+		const url = `${API_CONFIG.apiDomain}${END_POINTS.CATALOG_API.top}?subcategory=true&t=124&partnerId=68&campaignId=2691&storeId=77&appid=skavastore&locale=en_US`
+		fetch(url)
+		.then(function(response) {
+			return response.json()
+		})
+		.then(function(myJson) {
+			return myJson
+		})
+	}
+
+}
 
 class Home extends React.Component {
+	menuContent = {}
+
+	constructor(props) {
+		super(props)
+		const _self = this
+		getTopMenu()
+	}
 	componentDidMount()
 	{
-		if(true || typeof(window) != 'object')
-		{
-			fetch('http://localhost:4040/skavastream/core/v5/wrskavastore/category/top?subcategory=true&t=124&partnerId=68&campaignId=2691&storeId=77&appid=skavastore&locale=en_US')
-			.then(function(response) {
-				return response.json();
-			})
-			.then(function(myJson) {
-				console.log(JSON.stringify(myJson));
-			});
-		}
+		console.log('menu ', this.menuContent)
 	}
 	render(){
-		const { lang } = this.props.match.params;
+		const { lang } = this.props.match.params
 		return(
 			<div>
 				<Head title="React SSR Boilerplate • Home" />
@@ -34,4 +49,4 @@ class Home extends React.Component {
 	}
 }
 
-export default Home;
+export default Home

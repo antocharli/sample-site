@@ -2,8 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 
-console.log('__dirname ', path.resolve(__dirname, '../src/assets/'))
-
 module.exports = {
 	name: 'client',
 	entry: {

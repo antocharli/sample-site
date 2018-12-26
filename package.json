@@ -3,8 +3,7 @@
 	"version": "1.0.0",
 	"main": "main.js",
 	"description": "Webpack React SSR - Boilerplate",
-	"repository": "https://github.com/luangjokaj/react-ssr-boilerplate",
-	"license": "MIT",
+	"repository": "",
 	"dependencies": {
 		"@babel/cli": "^7.2.0",
 		"@babel/core": "^7.2.0",
