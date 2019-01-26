@@ -8,6 +8,9 @@ module.exports = {
 	externals,
 	entry: './src/server/render.js',
 	mode: 'development',
+	resolve: {
+		extensions: [".ts", ".tsx", ".js", ".jsx"]
+	},
 	output: {
 		filename: 'dev-server-bundle.js',
 		chunkFilename: '[name].js',
@@ -17,13 +20,19 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.js$/,
+				test: /\.(js|jsx|ts|tsx)$/,
 				exclude: /node_modules/,
 				use: [
 					{
-						loader: 'babel-loader',
+						loader: 'ts-loader',
 					},
 				],
+			},
+			// addition - add source-map support
+			{ 
+				enforce: "pre", 
+				test: /\.js$/, 
+				loader: "source-map-loader" 
 			},
 			{
 				test: /\.css$/,
@@ -43,6 +52,24 @@ module.exports = {
 						},
 					},
 				],
+				// use: [
+				// 	'style-loader',
+				// 	{
+				// 	  loader: 'typings-for-css-modules-loader',
+				// 	  options: {
+				// 		modules: true,
+				// 		namedExport: true
+				// 	  }
+				// 	},
+				// 	{
+				// 		loader: 'css-loader',
+				// 		options: {
+				// 			exportOnlyLocals: true,
+				// 			modules: true,
+				// 			localIdentName: '[name]__[local]--[hash:base64:5]',
+				// 		},
+				// 	},
+				//   ],
 			},
 			{
 				test: /\.(jpg|svg|png|gif)$/,

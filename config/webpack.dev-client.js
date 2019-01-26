@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 
 module.exports = {
 	name: 'client',
@@ -14,6 +13,9 @@ module.exports = {
 		],
 	},
 	mode: 'development',
+	resolve: {
+		extensions: [".ts", ".tsx", ".js", ".jsx"]
+	},
 	output: {
 		filename: '[name]-bundle.[hash].js',
 		chunkFilename: '[name].[hash].js',
@@ -24,20 +26,37 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.js$/,
+				test: /\.(js|jsx|ts|tsx)$/,
 				exclude: /node_modules/,
 				use: [
 					{
 						loader: 'babel-loader',
 					},
+					{
+						loader: 'ts-loader',
+						options: {
+							transpileOnly: true,
+							experimentalWatchApi: true,
+						  },
+					},
 				],
+			},
+			// addition - add source-map support
+			{ 
+				enforce: "pre", 
+				test: /\.js$/, 
+				loader: "source-map-loader" 
 			},
 			{
 				test: /\.css$/,
 				use: [
-					ExtractCssChunks.loader,
+					// ExtractCssChunks.loader,
+					{
+						loader: 'style-loader',
+					},
 					{
 						loader: 'css-loader',
+						// loader: 'typings-for-css-modules',
 						options: {
 							modules: true,
 							localIdentName: '[name]__[local]--[hash:base64:5]',
@@ -53,6 +72,24 @@ module.exports = {
 						},
 					},
 				],
+				// use: [
+				// 	'style-loader',
+				// 	{
+				// 	  loader: 'typings-for-css-modules-loader',
+				// 	  options: {
+				// 		modules: true,
+				// 		namedExport: true
+				// 	  }
+				// 	},
+				// 	{
+				// 		loader: 'css-loader',
+				// 		options: {
+				// 			exportOnlyLocals: true,
+				// 			modules: true,
+				// 			localIdentName: '[name]__[local]--[hash:base64:5]',
+				// 		},
+				// 	},
+				//   ],
 			},
 			{
 				test: /\.(jpg|svg|png|gif)$/,
@@ -76,11 +113,6 @@ module.exports = {
 		],
 	},
 	plugins: [
-		new ExtractCssChunks({
-			filename: '[name].[contenthash].css',
-			chunkFilename: '[name]-[hash:8].css',
-			hot: true,
-		}),
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('development'),
