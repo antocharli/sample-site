@@ -8,9 +8,6 @@ module.exports = {
 	externals,
 	entry: './src/server/render.js',
 	mode: 'development',
-	resolve: {
-		extensions: [".ts", ".tsx", ".js", ".jsx"]
-	},
 	output: {
 		filename: 'dev-server-bundle.js',
 		chunkFilename: '[name].js',
@@ -24,14 +21,21 @@ module.exports = {
 				exclude: /node_modules/,
 				use: [
 					{
+						loader: 'babel-loader',
+					},
+					{
 						loader: 'ts-loader',
+						options: {
+							transpileOnly: true,
+							experimentalWatchApi: true,
+						  },
 					},
 				],
 			},
 			// addition - add source-map support
 			{ 
 				enforce: "pre", 
-				test: /\.js$/, 
+				test: /\.(js|jsx|ts|tsx)$/,
 				loader: "source-map-loader" 
 			},
 			{
@@ -52,24 +56,6 @@ module.exports = {
 						},
 					},
 				],
-				// use: [
-				// 	'style-loader',
-				// 	{
-				// 	  loader: 'typings-for-css-modules-loader',
-				// 	  options: {
-				// 		modules: true,
-				// 		namedExport: true
-				// 	  }
-				// 	},
-				// 	{
-				// 		loader: 'css-loader',
-				// 		options: {
-				// 			exportOnlyLocals: true,
-				// 			modules: true,
-				// 			localIdentName: '[name]__[local]--[hash:base64:5]',
-				// 		},
-				// 	},
-				//   ],
 			},
 			{
 				test: /\.(jpg|svg|png|gif)$/,
@@ -102,5 +88,5 @@ module.exports = {
 				NODE_ENV: JSON.stringify('development'),
 			},
 		}),
-	]
+	],
 };

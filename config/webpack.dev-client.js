@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
 	name: 'client',
@@ -50,13 +51,10 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [
-					// ExtractCssChunks.loader,
-					{
-						loader: 'style-loader',
-					},
+					'css-hot-loader',
+					MiniCssExtractPlugin.loader,
 					{
 						loader: 'css-loader',
-						// loader: 'typings-for-css-modules',
 						options: {
 							modules: true,
 							localIdentName: '[name]__[local]--[hash:base64:5]',
@@ -72,24 +70,6 @@ module.exports = {
 						},
 					},
 				],
-				// use: [
-				// 	'style-loader',
-				// 	{
-				// 	  loader: 'typings-for-css-modules-loader',
-				// 	  options: {
-				// 		modules: true,
-				// 		namedExport: true
-				// 	  }
-				// 	},
-				// 	{
-				// 		loader: 'css-loader',
-				// 		options: {
-				// 			exportOnlyLocals: true,
-				// 			modules: true,
-				// 			localIdentName: '[name]__[local]--[hash:base64:5]',
-				// 		},
-				// 	},
-				//   ],
 			},
 			{
 				test: /\.(jpg|svg|png|gif)$/,
@@ -113,6 +93,10 @@ module.exports = {
 		],
 	},
 	plugins: [
+		new MiniCssExtractPlugin({
+			filename: '[name].css',
+			chunkFilename: '[name].css',
+		}),
 		new webpack.DefinePlugin({
 			'process.env': {
 				NODE_ENV: JSON.stringify('development'),
@@ -120,5 +104,5 @@ module.exports = {
 			},
 		}),
 		new webpack.HotModuleReplacementPlugin(),
-	]
+	],
 };

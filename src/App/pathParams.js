@@ -1,5 +1,3 @@
-const Loading = '../Views/Components/Loading'
-
 const pageNames = {
     home: '/',
     about: '/about',
