@@ -4,7 +4,7 @@ export class MenuContainer {
 	constructor(context) {
         this.context = context
         if(!this.context.data) {
-            this.getMenu()
+            // this.getMenu()
         }
 	}
 
@@ -16,8 +16,8 @@ export class MenuContainer {
 				.then(function(response) {
 					return response.json()
 				})
-				.then(function(myJson) {
-					return myJson
+				.then(function(jsonResponse) {
+					return Promise.resolve({menu: jsonResponse})
 				})
 		)
 	}
@@ -27,8 +27,8 @@ export class MenuContainer {
 		const response = this.context.data ? this.context.data : []
 		if(response && response.length > 0) {
 			response.forEach((data)=> {
-				if(data.home) {
-					apiData.data = data.home
+				if(data.menu) {
+					apiData.data = data.menu
 				}
 			})
 		}

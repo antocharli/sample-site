@@ -1,14 +1,14 @@
-import React, { Fragment } from 'react';
-import Head from '../../Components/Head';
-import Content from '../../Components/Content';
-import styles from './NotFound.css';
-import AppearAfter from '../../Components/AppearAfter';
-import { Status } from '../../Components/Status';
+import React, { Fragment } from 'react'
+import Head from '../../Components/Head'
+import Content from '../../Components/Content'
+import styles from './NotFound.css'
+import AppearAfter from '../../Components/AppearAfter'
+import { Status } from '../../Components/Status'
 
 function NotFound() {
 	return (
 		<Fragment>
-			<Head title="React SSR Boilerplate • Not Found" />
+			<Head title="Divisma Not Found" />
 			<Status code={404} />
 			<AppearAfter className={styles.content} delay={500}>
 				<Content>

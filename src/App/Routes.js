@@ -5,6 +5,8 @@ import Nav from '../Views/Components/Nav'
 import '../assets/css/globals.css'
 import Head from '../Views/Components/Head'
 import Loading from '../Views/Components/Loading'
+import Footer from '../Views/Components/Footer'
+import HeaderTop from '../Views/Components/HeaderTop'
 import { pathParams } from './pathParams'
 
 const UniversalComponent = universal(props => import(`../Views/Pages/${props.pageName}`), {
@@ -30,17 +32,12 @@ const getRoutes = () => {
 export default ({ staticContext, lang }) => (
 	<div>
 		<Head />
+		<HeaderTop />
 		<Nav lang={lang} />
 			<Switch>
 				{ getRoutes() }
 				<Route render={routeProps => <UniversalComponent pageName="NotFound" {...routeProps} />} />
 			</Switch>	
-		<footer>
-			############################# <br/>
-			
-			***** Footer goes here ***** <br/>
-
-			############################# <br/>
-		</footer>
+		<Footer />
 	</div>
 );

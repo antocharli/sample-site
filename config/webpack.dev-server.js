@@ -40,6 +40,7 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
+				exclude: [/node_modules/, /css2/],
 				use: [
 					{
 						loader: 'css-loader',

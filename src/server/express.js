@@ -13,6 +13,8 @@ import configDevServer from '../../config/webpack.dev-server.js';
 import configProdClient from '../../config/webpack.prod-client.js';
 import configProdServer from '../../config/webpack.prod-server.js';
 
+import { load3rdPartyAssets } from './load3rdPartyAssests'
+
 const isProd = process.env.NODE_ENV === 'production';
 const isDev = !isProd;
 const PORT = process.env.PORT || 3001;
@@ -42,15 +44,19 @@ if (isDev) {
 		configDevClient.devServer
 	);
 
-	const webpackHotMiddlware = require('webpack-hot-middleware')(
+	const webpackHotMiddleware = require('webpack-hot-middleware')(
 		clientCompiler,
 		configDevClient.devServer
 	);
 
+	load3rdPartyAssets(server)
+
 	server.use(webpackDevMiddleware);
-	server.use(webpackHotMiddlware);
+	server.use(webpackHotMiddleware);
 	server.use(webpackHotServerMiddleware(compiler));
 	console.log('Middleware enabled');
+
+	
 
 	// init proxy server need to make separate structure for this
 	const proxyApp = express()
