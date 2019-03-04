@@ -1,60 +1,74 @@
-@import '../../../assets/css/variables.css';
+.mainNavbar {
+	background: #282828;
+}
 
-.navigation {
-	width: 100%;
-	line-height: 2em;
-	background-color: var(--primary-color);
-	display: flex;
-	justify-content: space-between;
+.slicknavMenu {
+	display: none;
+}
 
-	& .logo {
-		box-sizing: border-box;
-		padding: 20px;
+.mainMenu {
+	list-style: none;
+}
 
-		& img {
-			width: 22px;
-			height: 20px;
-			vertical-align: middle;
-			margin-right: 10px;
-		}
+.mainMenu li {
+	display: inline-block;
+	position: relative;
+}
 
-		& span {
-			vertical-align: middle;
-			color: var(--white);
-			font-weight: bold;
-			font-size: var(--h5-font-size);
-		}
-	}
+.mainMenu li a {
+	display: inline-block;
+	font-size: 16px;
+	color: #ffffff;
+	margin-right: 50px;
+	line-height: 1;
+	padding: 17px 0;
+	position: relative;
+}
 
-	& .menu {
-		box-sizing: border-box;
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: flex;
-		padding: 0 10px 0 0;
+.mainMenu li:hover .subMenu {
+	visibility: visible;
+	opacity: 1;
+	margin-top: 0;
+}
 
-		& li {
-			box-sizing: border-box;
-			padding: 0;
-			margin: 0;
+.mainMenu li:hover>a {
+	color: #f51167;
+}
 
-			& a {
-				display: inline-block;
-				color: var(--white);
-				box-sizing: border-box;
-				font-size: var(--h5-font-size);
-				font-weight: 400;
-				padding: 20px 10px;
+.mainMenu .subMenu {
+	position: absolute;
+	list-style: none;
+	width: 220px;
+	left: 0;
+	top: 100%;
+	padding: 20px 0;
+	visibility: hidden;
+	opacity: 0;
+	margin-top: 50px;
+	background: #fff;
+	z-index: 99;
+	-webkit-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	transition: all 0.4s;
+	-webkit-box-shadow: 2px 7px 20px rgba(0, 0, 0, 0.05);
+	box-shadow: 2px 7px 20px rgba(0, 0, 0, 0.05);
+}
 
-				&:hover {
-					color: var(--extra-color);
-				}
+.mainMenu .subMenu li {
+	display: block;
+}
 
-				&.active {
-					color: var(--extra-color);
-				}
-			}
-		}
-	}
+.mainMenu .subMenu li a {
+	display: block;
+	color: #000;
+	margin-right: 0;
+	padding: 8px 20px;
+}
+
+.mainMenu .subMenu li a:hover {
+	color: #f51167;
+}
+
+.navSwitch {
+	display: none;
 }

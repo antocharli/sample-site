@@ -48,7 +48,7 @@ class Footer extends React.Component {
 									<h2>Questions</h2>
 									<div className={styles.fwLatestPostWidget}>
 										<div className={styles.lpItem}>
-											<div className={`${styles.lpThumb} ${styles.setBg}`} data-setbg={blogThumbImage1}></div>
+											<img className={`${styles.lpThumb} ${styles.setBg}`} src={blogThumbImage1} />
 											<div className={styles.lpContent}>
 												<h6>what shoes to wear</h6>
 												<span>Oct 21, 2018</span>
@@ -56,7 +56,7 @@ class Footer extends React.Component {
 											</div>
 										</div>
 										<div className={styles.lpItem}>
-											<div className={`${styles.lpThumb} ${styles.setBg}`} data-setbg={blogThumbImage2}></div>
+											<img className={`${styles.lpThumb} ${styles.setBg}`} src={blogThumbImage2} />
 											<div className={styles.lpContent}>
 												<h6>trends this year</h6>
 												<span>Oct 21, 2018</span>

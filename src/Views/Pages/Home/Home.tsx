@@ -1,8 +1,7 @@
-import React from 'react'
+import React, { useImperativeHandle } from 'react'
 import Head from '../../Components/Head'
-// import styles from './Home'
-
-const styles = require('./Home.css')
+import ImageGallery from '../../Components/ImageGallery'
+import ProductBlock from '../../Components/ProductBlock'
 
 import { t } from '../../Components/Languages'
 import { API_CONFIG, END_POINTS } from "../../../env"
@@ -20,13 +19,14 @@ interface HomeProps {
 class Home extends React.Component <HomeProps>{
 	render() {
 		const { lang } = this.props.match.params
+		// {t(lang, 'language.title')}
 
 		return (
 			<React.Fragment>
-				<Head title="React SSR Boilerplate • Home" />
-				<div className={styles.intro}>
-					<h1 className={styles.title}>React Boilerplate</h1>
-					<p className={styles.desc}>{t(lang, 'language.title')}</p>
+				<Head title='React SSR Boilerplate • Home' />
+				<ImageGallery />
+				<div className='container'>
+					<ProductBlock />
 				</div>
 			</React.Fragment>
 		)
