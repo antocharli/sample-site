@@ -1,4 +1,6 @@
 import React from 'react'
+import { observer } from 'mobx-react'
+import { observable } from 'mobx'
 import { ApiContent } from '../../../App/context'
 import ProductBlock from '../../Components/ProductBlock'
 import CategoryContainer from './Container'
@@ -18,10 +20,12 @@ const RenderCategoryItems = (response) => {
     }
 }
 
+@observer
 class CategoryPage extends React.Component {
     static contextType = ApiContent
     categoryId = this.props.match.params.categoryId
     categoryObj = new CategoryContainer(this.context)
+    @observable items = {}
 
     fetchDataFromAPI = async () => {
         if (!this.response || (this.response && !this.response.data)) {
@@ -34,6 +38,16 @@ class CategoryPage extends React.Component {
         this.response = this.categoryObj.getCategoryData(this.categoryId)
         this.items = this.response.data && this.response.data.product ? this.response.data.product : []
     }
+    
+    loadNewCategory = async (currentCategoryId) => {
+        console.log('Need to fetch API and to render')
+        this.response = {}
+        this.categoryId = currentCategoryId
+        const data = await this.fetchDataFromAPI()
+        this.fetchData()
+        console.log(this.response)
+    }
+    
     componentWillMount() {
         if (typeof window === 'undefined') {
             this.fetchDataFromAPI()
@@ -46,17 +60,12 @@ class CategoryPage extends React.Component {
         console.log('this.items', this.items)
     }
 
-    async componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps) {
         const prevCategoryId = prevProps.match.params.categoryId
         const currentCategoryId = this.props.match.params.categoryId
 
         if (currentCategoryId !== prevCategoryId) {
-            console.log('Need to fetch API and to render')
-            this.response = {}
-            this.categoryId = currentCategoryId
-            const data = await this.fetchDataFromAPI()
-            this.fetchData()
-            console.log(this.response)
+            this.loadNewCategory(currentCategoryId)
         }
     }
 
