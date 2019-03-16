@@ -3,18 +3,19 @@ export const isProduction = !!process.env.isProduction
 export const PROXY_PORT = 4040
 
 export const API_CONFIG = {
-    apiDomain: isProduction ? 'https://uxuidev.skavaone.com' : `http://localhost:${PROXY_PORT}`,
-    storeId: 77,
-    locale: 'en_US',
-    basePath: '/skavastream/core/v5',
-    serviceName: '/wrskavastore',
-    partnerId: 68,
-    campaignId: 2691,
-    appid: 'skavastore'
+    proxyDomain: `http://localhost:${PROXY_PORT}`,
+    apiDomain: 'https://ultaadmin.skavacommerce.com',
+    catalogBasePath: '/orchestrationservices/storefront/catalogs',
+    commonHeaders: {
+        'x-store-id': '61',
+        'locale': 'en_US',
+        'Content-Type': 'application/json'
+    }
 }
 
 export const END_POINTS = {
     CATALOG_API: {
-        'top': `${API_CONFIG.basePath}${API_CONFIG.serviceName}/category/top`,
+        'top': `${API_CONFIG.proxyDomain}${API_CONFIG.catalogBasePath}/categories/top`,
+        'category': `${API_CONFIG.proxyDomain}${API_CONFIG.catalogBasePath}/categories`,
     }
 }

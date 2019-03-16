@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet';
 import sitemap from './sitemap';
 import robots from './robots';
 import manifest from './manifest';
+import { useStaticRendering } from "mobx-react"
 
 import { flushChunkNames } from 'react-universal-component/server';
 import flushChunks from 'webpack-flush-chunks';
@@ -17,6 +18,10 @@ import { getFromTree } from '../App/getDataFromTreeWithContext'
 import { HTML } from './html'
 
 export default ({ clientStats }) => async (req, res) => {
+
+	// https://github.com/mobxjs/mobx-react#server-side-rendering-with-usestaticrendering
+	useStaticRendering(true);
+
 	const userLocales = extractLocalesFromReq(req);
 	let lang = guessLocale(['de', 'en'], userLocales, 'en');
 

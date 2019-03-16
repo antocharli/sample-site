@@ -12,7 +12,7 @@
 
 .mainMenu li {
 	display: inline-block;
-	position: relative;
+	/* position: relative; */
 }
 
 .mainMenu li a {
@@ -35,21 +35,27 @@
 	color: #f51167;
 }
 
+.mainMenu .menuBarWrapper {
+	position: relative;
+}
+
 .mainMenu .subMenu {
 	position: absolute;
 	list-style: none;
-	width: 220px;
+	/* width: 220px; */
+	min-width: 50vw;
+	display: flex;
 	left: 0;
 	top: 100%;
 	padding: 20px 0;
 	visibility: hidden;
 	opacity: 0;
-	margin-top: 50px;
+	/* margin-top: 50px; */
 	background: #fff;
 	z-index: 99;
-	-webkit-transition: all 0.4s;
+	/* -webkit-transition: all 0.4s;
 	-o-transition: all 0.4s;
-	transition: all 0.4s;
+	transition: all 0.4s; */
 	-webkit-box-shadow: 2px 7px 20px rgba(0, 0, 0, 0.05);
 	box-shadow: 2px 7px 20px rgba(0, 0, 0, 0.05);
 }
@@ -63,6 +69,10 @@
 	color: #000;
 	margin-right: 0;
 	padding: 8px 20px;
+}
+
+.mainMenu .subMenu .subMenuLink {
+	font-weight: bold;
 }
 
 .mainMenu .subMenu li a:hover {

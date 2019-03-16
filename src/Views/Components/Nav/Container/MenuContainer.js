@@ -1,25 +1,19 @@
-import { API_CONFIG, END_POINTS } from '../../../../env'
-
-export class MenuContainer {
+import { END_POINTS } from '../../../../env'
+import { fetchResponseFromAPI } from '../../../../Utils'
+import { transformMenu } from './transform'
+class MenuContainer {
 	constructor(context) {
         this.context = context
         if(!this.context.data) {
-            // this.getMenu()
+            this.getMenu()
         }
 	}
 
 	getMenu = () => {		
-		const url = `${API_CONFIG.apiDomain}${END_POINTS.CATALOG_API.top}?subcategory=true&t=124&partnerId=68&campaignId=2691&storeId=77&appid=skavastore&locale=en_US`
-
+		const url = `${END_POINTS.CATALOG_API.top}`
 		this.context.load(	
-				fetch(url)
-				.then(function(response) {
-					return response.json()
-				})
-				.then(function(jsonResponse) {
-					return Promise.resolve({menu: jsonResponse})
-				})
-		)
+				fetchResponseFromAPI({url, containerName: 'menu'})
+			)
 	}
 
 	getMenuData = () => {
@@ -32,6 +26,9 @@ export class MenuContainer {
 				}
 			})
 		}
-		return apiData
+		return transformMenu(apiData)
 	}
 }
+
+export default MenuContainer
+export { MenuContainer }

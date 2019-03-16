@@ -4,7 +4,6 @@ import ImageGallery from '../../Components/ImageGallery'
 import ProductBlock from '../../Components/ProductBlock'
 
 import { t } from '../../Components/Languages'
-import { API_CONFIG, END_POINTS } from "../../../env"
 import { string } from 'postcss-selector-parser';
 import { StringFormatDefinition } from 'ajv';
 import { Stringifier } from 'postcss';
