@@ -5,7 +5,12 @@ const blogThumbImage1 = require('../../../assets/images/blog-thumb1.jpg')
 const blogThumbImage2 = require('../../../assets/images/blog-thumb2.jpg')
 const logoLight = require('../../../assets/images/logo-light.png')
 
-class Footer extends React.Component {
+const IconWithText = (props) => {
+	const { className, iconClassName, displayName} = props
+	return (<a href="" className={className}><i className={`fa ${iconClassName}`}></i><span>{displayName}</span></a>)
+}
+
+class Footer extends React.Component {	
     render() {
         return(
             <footer className={styles.footerSection}>
@@ -43,6 +48,7 @@ class Footer extends React.Component {
 									</ul>
 								</div>
 							</div>
+							{/*
 							<div className="col-lg-3 col-sm-6">
 								<div className={`${styles.footerWidget} ${styles.aboutWidget}`}>
 									<h2>Questions</h2>
@@ -66,6 +72,7 @@ class Footer extends React.Component {
 									</div>
 								</div>
 							</div>
+							*/}
 							<div className="col-lg-3 col-sm-6">
 								<div className={`${styles.footerWidget} ${styles.contactWidget}`}>
 									<h2>Questions</h2>
@@ -92,13 +99,13 @@ class Footer extends React.Component {
 					<div className={styles.socialLinksWarp}>
 						<div className="container">
 							<div className={styles.socialLinks}>
-								<a href="" className={styles.instagram}><i className="fa fa-instagram"></i><span>instagram</span></a>
-								<a href="" className={styles.googlePlus}><i className="fa fa-google-plus"></i><span>g+plus</span></a>
-								<a href="" className={styles.pinterest}><i className="fa fa-pinterest"></i><span>pinterest</span></a>
-								<a href="" className={styles.facebook}><i className="fa fa-facebook"></i><span>facebook</span></a>
-								<a href="" className={styles.twitter}><i className="fa fa-twitter"></i><span>twitter</span></a>
-								<a href="" className={styles.youtube}><i className="fa fa-youtube"></i><span>youtube</span></a>
-								<a href="" className={styles.tumblr}><i className="fa fa-tumblr-square"></i><span>tumblr</span></a>
+								<IconWithText className={styles.instagram} iconClassName='fa fa-instagram' displayName='instagram' />
+								<IconWithText className={styles.googlePlus} iconClassName='fa fa-google-plus' displayName='g+plus' />
+								<IconWithText className={styles.pinterest} iconClassName='fa fa-pinterest' displayName='pinterest' />
+								<IconWithText className={styles.facebook} iconClassName='fa fa-facebook' displayName='facebook' />
+								<IconWithText className={styles.twitter} iconClassName='fa fa-twitter' displayName='twitter' />
+								<IconWithText className={styles.youtube} iconClassName='fa fa-youtube' displayName='youtube' />
+								<IconWithText className={styles.tumblr} iconClassName='fa fa-tumblr-square' displayName='tumblr' />
 							</div>
 			
 						<p className="text-white text-center mt-5">Copyright &copy; 2019 All rights reserved | This template is made with <i className="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>

@@ -1,5 +1,5 @@
 import { END_POINTS } from '../../../../env'
-import { fetchResponseFromAPI } from '../../../../Utils'
+import { fetchResponseFromAPI, getLocalStorage, setLocalStorage } from '../../../../Utils'
 
 class CategoryContainer { 
 	constructor(context, categoryId) {
@@ -11,13 +11,20 @@ class CategoryContainer {
 		this.categoryContainerName = `category_${categoryId}`
         if(categoryId) {
 			const url = `${END_POINTS.CATALOG_API.category}`
+			const loadParams = {
+				url,
+				containerName: this.categoryContainerName,
+				pathParams: `${categoryId}/products`
+			}
+
 			if(typeof window === 'undefined') {
-				this.context.load(	
-						fetchResponseFromAPI({url, containerName: this.categoryContainerName, pathParams: `${categoryId}/products`})
+				this.context.load(
+						fetchResponseFromAPI(loadParams)
 					)
-			} 
+			}
 			else {
-				const response = await fetchResponseFromAPI({url, containerName: this.categoryContainerName, pathParams: `${categoryId}/products`})
+				const localResponse = await this.getCategoryData(categoryId)
+				const response = localResponse && localResponse.data ? localResponse : await fetchResponseFromAPI(loadParams)
 				this.setCategoryResponse(response)
 				return response
 			}
@@ -33,6 +40,18 @@ class CategoryContainer {
 
 	getCategoryData = (categoryId) => {
 		this.categoryContainerName = `category_${categoryId}`
+
+		const localData = getLocalStorage(this.categoryContainerName)
+
+		if(localData && localData.data) {
+			return localData
+		}
+		else {
+			return this.fetchCategoryResponse()
+		}
+		
+	}
+	fetchCategoryResponse() {
 		const apiData = {}
 		const response = this.context.data ? this.context.data : []
 		if(response && response.length > 0) {
@@ -42,8 +61,13 @@ class CategoryContainer {
 				}
 			})
 		}
-        // return transformCategory(apiData)
-        return apiData
+		const transformedResponse = this.transformCategory(apiData)
+		setLocalStorage(this.categoryContainerName, transformedResponse)
+		return transformedResponse
+	}
+
+	transformCategory(apiData) {
+		return apiData
 	}
 }
 

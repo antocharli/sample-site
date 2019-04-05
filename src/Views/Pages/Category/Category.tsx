@@ -4,12 +4,11 @@ import { observable } from 'mobx'
 import { ApiContent } from '../../../App/context'
 import ProductBlock from '../../Components/ProductBlock'
 import CategoryContainer from './Container'
-import { object } from 'prop-types';
 
 const RenderCategoryItems = (response) => {
     const { items } = response
     
-    if(items) {
+    if(items && items.length > 0) {
         const itemsArray = items.map((item, idx) => {
             return <ProductBlock key={idx} item={item}/>
         })
@@ -25,39 +24,34 @@ class CategoryPage extends React.Component {
     static contextType = ApiContent
     categoryId = this.props.match.params.categoryId
     categoryObj = new CategoryContainer(this.context)
+
+    scoped = {
+        response: {}
+    }
+
     @observable items = {}
 
     fetchDataFromAPI = async () => {
-        if (!this.response || (this.response && !this.response.data)) {
-            const data = await this.categoryObj.getCategory(this.categoryId)
-            console.log('api data ', data)
+        if (!this.scoped.response || (this.scoped.response && !this.scoped.response.data)) {
+            await this.categoryObj.getCategory(this.categoryId)
+            this.fetchDataFromStorage()
         }
     }
 
-    fetchData = () => {
-        this.response = this.categoryObj.getCategoryData(this.categoryId)
-        this.items = this.response.data && this.response.data.product ? this.response.data.product : []
+    fetchDataFromStorage = () => {
+        this.scoped.response = this.categoryObj.getCategoryData(this.categoryId)
+        this.items = this.scoped.response.data && this.scoped.response.data.product ? this.scoped.response.data.product : []
     }
     
-    loadNewCategory = async (currentCategoryId) => {
-        console.log('Need to fetch API and to render')
-        this.response = {}
+    fetchCategoryData = async (currentCategoryId) => {
+        this.scoped.response = {}
         this.categoryId = currentCategoryId
-        const data = await this.fetchDataFromAPI()
-        this.fetchData()
-        console.log(this.response)
+        await this.fetchDataFromAPI()
     }
     
     componentWillMount() {
-        if (typeof window === 'undefined') {
-            this.fetchDataFromAPI()
-        }
-        this.fetchData()
-    }
-
-    componentDidMount() {
-        this.fetchDataFromAPI()
-        console.log('this.items', this.items)
+        this.fetchDataFromStorage()
+        this.fetchCategoryData(this.categoryId)
     }
 
     componentDidUpdate(prevProps) {
@@ -65,7 +59,9 @@ class CategoryPage extends React.Component {
         const currentCategoryId = this.props.match.params.categoryId
 
         if (currentCategoryId !== prevCategoryId) {
-            this.loadNewCategory(currentCategoryId)
+            this.scoped.response = {}
+            this.fetchCategoryData(currentCategoryId)
+            console.log('component did update')
         }
     }
 

@@ -4,10 +4,10 @@ export const PROXY_PORT = 4040
 
 export const API_CONFIG = {
     proxyDomain: `http://localhost:${PROXY_PORT}`,
-    apiDomain: 'https://ultaadmin.skavacommerce.com',
+    apiDomain: 'https://api.skavacommerce.com',
     catalogBasePath: '/orchestrationservices/storefront/catalogs',
     commonHeaders: {
-        'x-store-id': '61',
+        'x-store-id': '11',
         'locale': 'en_US',
         'Content-Type': 'application/json'
     }

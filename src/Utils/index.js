@@ -1,5 +1,7 @@
-import fetchResponseFromAPI from './apiUtils'
+import { fetchResponseFromAPI, setLocalStorage, getLocalStorage } from './apiUtils'
 
 export {
-    fetchResponseFromAPI   
+    fetchResponseFromAPI,
+    setLocalStorage,
+    getLocalStorage
 }

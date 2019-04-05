@@ -1,7 +1,7 @@
 import { API_CONFIG } from '../env'
 import 'isomorphic-fetch'
 
-export async function fetchResponseFromAPI(apiConfig) {
+async function fetchResponseFromAPI(apiConfig) {
     const { url, headers = {}, requestType = 'GET', containerName, pathParams } = apiConfig
     const combinedHeaders = Object.assign(headers, API_CONFIG.commonHeaders) 
     const finalUrl = url + (pathParams ? `?pathParams=${pathParams}` : '')
@@ -28,4 +28,27 @@ export async function fetchResponseFromAPI(apiConfig) {
     })
 }
 
+function setLocalStorage(storageName, storageItem) {
+    try {
+        if(typeof window !== 'undefined') {
+            localStorage.setItem(storageName, JSON.stringify(storageItem))
+        }
+    }
+    catch(e) {
+        console.error('Exception in storage', e)
+    }
+}
+
+function getLocalStorage(storageName) {
+    try {
+        if(typeof window !== 'undefined') {
+            return JSON.parse(localStorage.getItem(storageName))
+        }
+    }
+    catch(e) {
+        console.error('Exception in storage', e)
+    }
+}
+
 export default fetchResponseFromAPI
+export { fetchResponseFromAPI, setLocalStorage, getLocalStorage }
